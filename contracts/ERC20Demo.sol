@@ -1,16 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable2Step.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import {Ownable2Step, Ownable} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
-error MaxTotalSupplyExceeded(
-    uint256 exceededTotalSupply,
-    uint256 maxTotalSupply
-);
+import {IERC20Demo} from "./IERC20Demo.sol";
 
-contract ERC20Demo is ERC20, ERC20Burnable, Ownable2Step {
+contract ERC20Demo is ERC20, ERC20Burnable, Ownable2Step, IERC20Demo {
     uint256 public constant MAX_TOTAL_SUPPLY = 1_000_000 * (10 ** 18);
 
     constructor(
