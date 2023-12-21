@@ -48,4 +48,11 @@ contract ERC20Demo is ERC20, ERC20Burnable, Ownable2Step, IERC20Demo {
         }
         _mint(to, amount);
     }
+
+    /**
+     * @dev Prevent locking of ETH in this contract. This function is called whenever the contract receives ETH.
+     */
+    receive() external payable {
+        revert ReceivingEthUnsupported(msg.value);
+    }
 }

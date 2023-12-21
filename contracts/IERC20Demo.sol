@@ -16,6 +16,11 @@ interface IERC20Demo is IERC20 {
     );
 
     /**
+     * @dev Thrown on receiving unexpected ETH.
+     */
+    error ReceivingEthUnsupported(uint256 value);
+
+    /**
      * @dev Creates an `amount` amount of tokens and assigns them to `to`, by transferring it from address(0).
      * This function is restricted to the `owner` managed by OpenZeppelins Ownable2Step. The function increases
      * the `totalSupply` of the token by the given `amount`. The maximum total supply is restricted by

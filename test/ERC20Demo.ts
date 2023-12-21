@@ -66,4 +66,17 @@ describe("ERC20Demo", function () {
       ).to.be.revertedWithCustomError(erc20, "OwnableUnauthorizedAccount");
     });
   });
+
+  describe("Fallback", function () {
+    it("Should revert receiving ETH", async function () {
+      const { erc20, owner } = await loadFixture(deployFixture);
+      const amount = 10n ** 18n;
+      await expect(
+        owner.sendTransaction({
+          to: erc20.target,
+          value: amount,
+        })
+      ).to.be.revertedWithCustomError(erc20, "ReceivingEthUnsupported");
+    });
+  });
 });
