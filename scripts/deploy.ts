@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import deploymentArgs from "./deploymentArgs";
 
 async function main() {
   // get deployer information
@@ -10,8 +11,7 @@ async function main() {
   );
 
   // deploy token contract
-  const Token = await ethers.getContractFactory("ERC20Demo");
-  const token = await Token.deploy(deployer.address);
+  const token = await ethers.deployContract("ERC20Demo", deploymentArgs);
   await token.waitForDeployment();
   console.log("Token deployed at:", token.target);
 }

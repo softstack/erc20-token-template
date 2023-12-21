@@ -18,16 +18,24 @@ import {IERC20Demo} from "./IERC20Demo.sol";
  * the `owner` managed by OpenZeppelins {Ownable2Step}.
  */
 contract ERC20Demo is ERC20, ERC20Burnable, Ownable2Step, IERC20Demo {
-    uint256 public constant MAX_TOTAL_SUPPLY = 1_000_000 * (10 ** 18);
+    uint256 public immutable MAX_TOTAL_SUPPLY;
 
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection
      * and setting the `initialOwner` as the `owner` address that is allowed to mint tokens.
      * @param initialOwner The address of the initial `owner` of the token contract.
+     * @param tokenName The name of the token.
+     * @param tokenSymbol The symbol of the token.
+     * @param maxTotalSupply The maximum total supply of the token without decimals.
      */
     constructor(
+        string memory tokenName,
+        string memory tokenSymbol,
+        uint256 maxTotalSupply,
         address initialOwner
-    ) ERC20("DemoToken", "DMT") Ownable(initialOwner) {}
+    ) ERC20(tokenName, tokenSymbol) Ownable(initialOwner) {
+        MAX_TOTAL_SUPPLY = maxTotalSupply * 10 ** decimals();
+    }
 
     /**
      * @dev See {IERC20Demo-mint}.

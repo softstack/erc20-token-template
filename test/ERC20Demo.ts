@@ -7,8 +7,14 @@ describe("ERC20Demo", function () {
     // Contracts are deployed using the first signer/account by default
     const [owner, firstAccount, secondAccount] = await ethers.getSigners();
 
+    const maxSupply = 1_000_000n;
     const ERC20Demo = await ethers.getContractFactory("ERC20Demo");
-    const erc20 = await ERC20Demo.deploy(owner.address);
+    const erc20 = await ERC20Demo.deploy(
+      "DemoToken",
+      "DMT",
+      maxSupply,
+      owner.address
+    );
 
     return { erc20, owner, firstAccount, secondAccount };
   }
